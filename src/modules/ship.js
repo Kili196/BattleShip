@@ -3,15 +3,13 @@ module.exports = class Ship {
         this.name = name;
         this.hits = 0;
         this.length = length;
+    }
+    hit() {
+        this.hits++;
+    }
 
-
-        function hit() {
-            this.hits++;
-        }
-
-        function isSunk() {
-            return this.hits == this.length;
-        }
+    isSunk() {
+        return this.hits == this.length;
     }
 }
 
