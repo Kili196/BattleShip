@@ -11,11 +11,15 @@ module.exports = class Gameboard {
         }
     }
 
-    placeShip(ship, coordinateX, coordinateY) {
+    placeShip(ship, coordinateY, coordinateX) {
 
 
         if (!(ship instanceof Ship)) {
             throw new Error("Not the right ship");
+        }
+
+        else if (coordinateY > 10 || coordinateY < 1 || coordinateX > 10 || coordinateX < 1) {
+            throw new Error("CoordinateY > 10 or < 1 or CoordianteX > 9 or < 1")
         }
 
         return 1;
