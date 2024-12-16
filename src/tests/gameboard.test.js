@@ -1,8 +1,12 @@
-const gameBoard = require("../modules/gameboard")
+const gameBoardConstructor = require("../modules/gameboard")
+
+let gameBoard;
 
 
-
+beforeEach(() => {
+    gameBoard = new gameBoardConstructor();
+})
 
 test("Test gameBoard construcotr", () => {
-    expect(new gameBoard()).toBeDefined();
+    expect(new gameBoardConstructor()).toBeDefined();
 })
