@@ -13,5 +13,11 @@ module.exports = class Gameboard {
 
     placeShip(ship, coordinateX, coordinateY) {
 
+
+        if (!(ship instanceof Ship)) {
+            throw new Error("Not the right ship");
+        }
+
+        return 1;
     }
 }

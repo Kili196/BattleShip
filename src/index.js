@@ -1,8 +1,4 @@
-import { Ship } from "./modules/ship"
 
+const gameBoardConstructor = require("./modules/gameboard")
 
-
-
-
-
-
+console.log(new gameBoardConstructor().ships.Carrier)

@@ -24,3 +24,11 @@ test("Test the ships of a gameboard", () => {
         "Submarine": new shipConstructor("Carrier", 3)
     })
 })
+
+test("Test if the placeShip function exist", () => {
+    expect(gameBoardObject.placeShip(new shipConstructor("Carrier", 3), 3, 3)).toBeDefined();
+})
+
+test("Test if the placeShip function throws Error", () => {
+    expect(() => gameBoardObject.placeShip("Hallo", 3, 3)).toThrow("Not the right ship");
+})
