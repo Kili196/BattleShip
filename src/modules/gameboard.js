@@ -6,14 +6,13 @@ module.exports = class Gameboard {
         this.ships = {
             "Carrier": new Ship("Carrier", 5),
             "Battleship": new Ship("Carrier", 4),
-            "Carrier": new Ship("Carrier", 3),
-            "Submarine": new Ship("Carrier", 3),
+            "Submarine": new Ship("Submarine", 3),
         }
     }
 
 
     //placing ships vertically working --> not checking for errors yet
-    placeShip(ship, coordinateY, coordinateX) {
+    placeShip(ship, coordinateY, coordinateX, isVertical) {
         if (!(ship instanceof Ship)) {
             throw new Error("Not the right ship");
         }
@@ -22,11 +21,19 @@ module.exports = class Gameboard {
             throw new Error("CoordinateY > 10 or < 1 or CoordianteX > 9 or < 1")
         }
 
-        let count = 1;
-        while (count <= ship.length) {
-            this.gameboard[coordinateY - 1][coordinateX - 1] = ship;
-            coordinateY++;
-            count++;
+
+        if (isVertical) {
+            for (let i = 0; i < ship.length; i++) {
+                this.gameboard[coordinateY - 1][coordinateX - 1] = ship;
+                coordinateY++;
+            }
+        }
+
+        else {
+            for (let i = 0; i < ship.length; i++) {
+                this.gameboard[coordinateY - 1][coordinateX - 1] = ship;
+                coordinateX++;
+            }
         }
         return 1;
     }
