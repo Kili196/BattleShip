@@ -9,6 +9,8 @@ beforeEach(() => {
 })
 
 test("Test gameBoard construcotr", () => {
+
+    console.log(gameBoardObject.gameboard)
     expect(new gameBoardConstructor()).toBeDefined();
 })
 

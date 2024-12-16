@@ -2,7 +2,7 @@ const Ship = require("./ship");
 
 module.exports = class Gameboard {
     constructor() {
-        this.gameboard = Array.from({ length: 100 }, () => []);
+        this.gameboard = Array.from({ length: 10 }, () => Array(10).fill([]));
         this.ships = {
             "Carrier": new Ship("Carrier", 5),
             "Battleship": new Ship("Carrier", 4),
@@ -12,8 +12,6 @@ module.exports = class Gameboard {
     }
 
     placeShip(ship, coordinateY, coordinateX) {
-
-
         if (!(ship instanceof Ship)) {
             throw new Error("Not the right ship");
         }
@@ -22,6 +20,18 @@ module.exports = class Gameboard {
             throw new Error("CoordinateY > 10 or < 1 or CoordianteX > 9 or < 1")
         }
 
+        let count = 1;
+
+
+
+        while (count <= ship.length) {
+
+            console.log(coordinateY - 1 + " y")
+            console.log(coordinateX - 1 + " x")
+            this.gameboard[coordinateY - 1][coordinateX - 1] = ship;
+            coordinateY++;
+            count++;
+        }
         return 1;
     }
 }
