@@ -11,6 +11,8 @@ module.exports = class Gameboard {
         }
     }
 
+
+    //placing ships vertically working --> not checking for errors yet
     placeShip(ship, coordinateY, coordinateX) {
         if (!(ship instanceof Ship)) {
             throw new Error("Not the right ship");
@@ -21,13 +23,7 @@ module.exports = class Gameboard {
         }
 
         let count = 1;
-
-
-
         while (count <= ship.length) {
-
-            console.log(coordinateY - 1 + " y")
-            console.log(coordinateX - 1 + " x")
             this.gameboard[coordinateY - 1][coordinateX - 1] = ship;
             coordinateY++;
             count++;
