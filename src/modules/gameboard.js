@@ -5,7 +5,7 @@ module.exports = class Gameboard {
         this.gameboard = Array.from({ length: 10 }, () => Array(10).fill([]));
         this.ships = {
             "Carrier": new Ship("Carrier", 5),
-            "Battleship": new Ship("Carrier", 4),
+            "Battleship": new Ship("Battleship", 4),
             "Submarine": new Ship("Submarine", 3),
         }
     }

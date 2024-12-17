@@ -15,15 +15,14 @@ test("Test gameBoard construcotr", () => {
 })
 
 test("Test size of gameboard", () => {
-    expect(gameBoardObject.gameboard.length).toBe(100);
+    expect(gameBoardObject.gameboard.length).toBe(10);
 })
 
 test("Test the ships of a gameboard", () => {
     expect(gameBoardObject.ships).toEqual({
         "Carrier": new shipConstructor("Carrier", 5),
-        "Battleship": new shipConstructor("Carrier", 4),
-        "Carrier": new shipConstructor("Carrier", 3),
-        "Submarine": new shipConstructor("Carrier", 3)
+        "Battleship": new shipConstructor("Battleship", 4),
+        "Submarine": new shipConstructor("Submarine", 3)
     })
 })
 
@@ -36,7 +35,8 @@ test("Test if the placeShip function throws Error", () => {
 })
 
 
-//test for the wrong coordiantes
+//test for the wrong coordiantes of placeship
+
 test("Test if the placeShip function throws Error for incorrect coordinates", () => {
     expect(() => gameBoardObject.placeShip(new shipConstructor("Carrier", 3), -3, 3)).toThrow("CoordinateY > 10 or < 1 or CoordianteX > 9 or < 1");
     expect(() => gameBoardObject.placeShip(new shipConstructor("Carrier", 3), 0, 1)).toThrow("CoordinateY > 10 or < 1 or CoordianteX > 9 or < 1");
@@ -44,3 +44,15 @@ test("Test if the placeShip function throws Error for incorrect coordinates", ()
     expect(() => gameBoardObject.placeShip(new shipConstructor("Carrier", 3), 0, 0)).toThrow("CoordinateY > 10 or < 1 or CoordianteX > 9 or < 1");
     expect(() => gameBoardObject.placeShip(new shipConstructor("Carrier", 3), 1, 11)).toThrow("CoordinateY > 10 or < 1 or CoordianteX > 9 or < 1");
 })
+
+
+describe("Test placeship function", () => {
+
+
+
+
+    expect(gameBoardObject.gameboard[0][0]).toEqual(gameBoardObject.ships.Carrier);
+
+})
+
+//test if placing ship works
