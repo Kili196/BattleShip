@@ -9,8 +9,6 @@ beforeEach(() => {
 })
 
 test("Test gameBoard construcotr", () => {
-
-    console.log(gameBoardObject.gameboard)
     expect(new gameBoardConstructor()).toBeDefined();
 })
 
@@ -47,11 +45,16 @@ test("Test if the placeShip function throws Error for incorrect coordinates", ()
 
 
 describe("Test placeship function", () => {
+    beforeEach(() => {
+        gameBoardObject.placeShip(gameBoardObject.ships.Carrier, 1, 1);
+    })
 
 
+    test("Testing if ship is placed in first row", () => {
+        expect(gameBoardObject.gameboard[0][0]).toEqual(gameBoardObject.ships.Carrier);
+    })
 
 
-    expect(gameBoardObject.gameboard[0][0]).toEqual(gameBoardObject.ships.Carrier);
 
 })
 
