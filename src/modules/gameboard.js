@@ -8,6 +8,9 @@ module.exports = class Gameboard {
             "Battleship": new Ship("Battleship", 4),
             "Submarine": new Ship("Submarine", 3),
         }
+
+        this.placedShips = [];
+
         this.missedShots = 0;
 
     }
@@ -47,6 +50,8 @@ module.exports = class Gameboard {
         }
 
         if (this.isPlacementValid(this.gameboard, coordinateY, coordinateX, ship, isVertical)) {
+
+            this.placedShips.push(ship);
             for (let i = 0; i < ship.length; i++) {
                 this.gameboard[coordinateY - 1][coordinateX - 1] = ship;
                 isVertical ? coordinateY++ : coordinateX++;
@@ -58,7 +63,6 @@ module.exports = class Gameboard {
 
     //returning 1 if hit and -1 if not
     receiveAttack(coordinateY, coordinateX) {
-
         if (coordinateY > 10 || coordinateY < 1 || coordinateX > 10 || coordinateX < 1) {
             throw new Error("CoordinateY > 10 or < 1 or CoordianteX > 10 or < 1")
         }
@@ -70,6 +74,16 @@ module.exports = class Gameboard {
         this.missedShots++;
         return -1;
     }
+
+    allShipsSunk() {
+        for (const ship in this.placedShips) {
+            if (!(this.placedShips[ship].isSunk())) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 
 
 

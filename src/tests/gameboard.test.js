@@ -77,9 +77,21 @@ describe("Test placeship function", () => {
 describe("Testing of the function receiveAttack", () => {
 
     beforeEach(() => {
+        //missed shot
+        gameBoardObject.receiveAttack(4, 2);
+        //sink carrier
         gameBoardObject.receiveAttack(1, 1);
         gameBoardObject.receiveAttack(2, 1);
-        gameBoardObject.receiveAttack(1, 2);
+        gameBoardObject.receiveAttack(3, 1);
+        gameBoardObject.receiveAttack(4, 1);
+        gameBoardObject.receiveAttack(5, 1);
+
+        //sink battelship
+        gameBoardObject.receiveAttack(3, 5);
+        gameBoardObject.receiveAttack(3, 6);
+        gameBoardObject.receiveAttack(3, 7);
+        gameBoardObject.receiveAttack(3, 8);
+
     })
 
 
@@ -95,7 +107,7 @@ describe("Testing of the function receiveAttack", () => {
     })
 
     test("Test if hits of object gets increased when using receiveAttack function", () => {
-        expect(gameBoardObject.ships.Carrier.hits).toBe(2);
+        expect(gameBoardObject.ships.Carrier.hits).toBe(5);
     })
     test("Test if -1 is returned if not hitting ship", () => {
         expect(gameBoardObject.receiveAttack(5, 5)).toBe(-1);
@@ -107,6 +119,25 @@ describe("Testing of the function receiveAttack", () => {
     test("Test if missedShots of gameboard is safed right", () => {
         expect(gameBoardObject.missedShots).toBe(1);
     })
+
+
+    describe("Place one more ship", () => {
+        beforeEach(() => {
+            gameBoardObject.placeShip(gameBoardObject.ships.Submarine, 7, 3, true)
+        })
+
+        test("Test if all ships are sunken is false", () => {
+            expect(gameBoardObject.allShipsSunk()).toBe(false)
+        })
+    })
+
+
+    test("Test if all ships are sunken is true", () => {
+        expect(gameBoardObject.allShipsSunk()).toBe(true)
+    })
+
+
+
 
 
 
