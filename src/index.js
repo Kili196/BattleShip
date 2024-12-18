@@ -20,4 +20,4 @@ gameBoardObject.placeShip(gameBoardObject.ships.Battleship, 2, 6, true);
 
 
 
-console.log(gameBoardObject.gameboard)
+console.log(gameBoardObject.receiveAttack(1, 1));

@@ -6,6 +6,8 @@ let gameBoardObject;
 
 beforeEach(() => {
     gameBoardObject = new gameBoardConstructor();
+    gameBoardObject.placeShip(gameBoardObject.ships.Carrier, 1, 1, true);
+    gameBoardObject.placeShip(gameBoardObject.ships.Battleship, 3, 5, false);
 })
 
 test("Test gameBoard construcotr", () => {
@@ -43,16 +45,12 @@ test("Test if the placeShip function throws Error for incorrect coordinates", ()
     expect(() => gameBoardObject.placeShip(new shipConstructor("Carrier", 3), 1, 11)).toThrow("CoordinateY > 10 or < 1 or CoordianteX > 9 or < 1");
 })
 
-
+//test if placing ship works
 describe("Test placeship function", () => {
     beforeEach(() => {
         gameBoardObject.placeShip(gameBoardObject.ships.Carrier, 1, 1, true);
-
-
         gameBoardObject.placeShip(gameBoardObject.ships.Battleship, 3, 5, false);
-
         gameBoardObject.placeShip(gameBoardObject.ships.Submarine, 1, 1, true);
-
         gameBoardObject.placeShip(gameBoardObject.ships.Battleship, 2, 6, true);
     })
 
@@ -75,4 +73,36 @@ describe("Test placeship function", () => {
 
 })
 
-//test if placing ship works
+
+describe("Testing of the function receiveAttack", () => {
+
+    beforeEach(() => {
+        gameBoardObject.receiveAttack(1, 1);
+        gameBoardObject.receiveAttack(1, 2);
+    })
+
+    test("Test if receiveAttack function is defined", () => {
+        expect(gameBoardObject.receiveAttack(1, 1)).toBeDefined();
+    })
+
+    test("Test if hits of object gets increased when using receiveAttack function", () => {
+        expect(gameBoardObject.ships.Carrier.hits).toBe(2);
+    })
+    test("Test if -1 is returned if not hitting ship", () => {
+        expect(gameBoardObject.receiveAttack(5, 5)).toBe(-1);
+    })
+    test("Test if 1 is returned if hitting ship", () => {
+        expect(gameBoardObject.receiveAttack(1, 1)).toBe(1);
+    })
+
+
+
+
+
+
+
+
+
+
+})
+

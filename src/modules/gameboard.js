@@ -8,6 +8,8 @@ module.exports = class Gameboard {
             "Battleship": new Ship("Battleship", 4),
             "Submarine": new Ship("Submarine", 3),
         }
+        this.missedShots = 0;
+
     }
 
     isPlacementValid(gameBoard, coordinateY, coordinateX, ship, isVertical) {
@@ -53,6 +55,13 @@ module.exports = class Gameboard {
         }
         return -1;
     }
+
+
+    receiveAttack(coordinateY, coordinateX) {
+        return 1;
+    }
+
+
 
 
 
