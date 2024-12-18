@@ -38,11 +38,11 @@ test("Test if the placeShip function throws Error", () => {
 //test for the wrong coordiantes of placeship
 
 test("Test if the placeShip function throws Error for incorrect coordinates", () => {
-    expect(() => gameBoardObject.placeShip(new shipConstructor("Carrier", 3), -3, 3)).toThrow("CoordinateY > 10 or < 1 or CoordianteX > 9 or < 1");
-    expect(() => gameBoardObject.placeShip(new shipConstructor("Carrier", 3), 0, 1)).toThrow("CoordinateY > 10 or < 1 or CoordianteX > 9 or < 1");
-    expect(() => gameBoardObject.placeShip(new shipConstructor("Carrier", 3), 0, -1)).toThrow("CoordinateY > 10 or < 1 or CoordianteX > 9 or < 1");
-    expect(() => gameBoardObject.placeShip(new shipConstructor("Carrier", 3), 0, 0)).toThrow("CoordinateY > 10 or < 1 or CoordianteX > 9 or < 1");
-    expect(() => gameBoardObject.placeShip(new shipConstructor("Carrier", 3), 1, 11)).toThrow("CoordinateY > 10 or < 1 or CoordianteX > 9 or < 1");
+    expect(() => gameBoardObject.placeShip(new shipConstructor("Carrier", 3), -3, 3)).toThrow("CoordinateY > 10 or < 1 or CoordianteX > 10 or < 1");
+    expect(() => gameBoardObject.placeShip(new shipConstructor("Carrier", 3), 0, 1)).toThrow("CoordinateY > 10 or < 1 or CoordianteX > 10 or < 1");
+    expect(() => gameBoardObject.placeShip(new shipConstructor("Carrier", 3), 0, -1)).toThrow("CoordinateY > 10 or < 1 or CoordianteX > 10 or < 1");
+    expect(() => gameBoardObject.placeShip(new shipConstructor("Carrier", 3), 0, 0)).toThrow("CoordinateY > 10 or < 1 or CoordianteX > 10 or < 1");
+    expect(() => gameBoardObject.placeShip(new shipConstructor("Carrier", 3), 1, 11)).toThrow("CoordinateY > 10 or < 1 or CoordianteX > 10 or < 1");
 })
 
 //test if placing ship works
@@ -78,7 +78,16 @@ describe("Testing of the function receiveAttack", () => {
 
     beforeEach(() => {
         gameBoardObject.receiveAttack(1, 1);
+        gameBoardObject.receiveAttack(2, 1);
         gameBoardObject.receiveAttack(1, 2);
+    })
+
+
+    test("Test for wrong values", () => {
+        expect(() => gameBoardObject.receiveAttack(11, 1)).toThrow("CoordinateY > 10 or < 1 or CoordianteX > 10 or < 1");
+        expect(() => gameBoardObject.receiveAttack(9, 11)).toThrow("CoordinateY > 10 or < 1 or CoordianteX > 10 or < 1");
+        expect(() => gameBoardObject.receiveAttack(0, 1)).toThrow("CoordinateY > 10 or < 1 or CoordianteX > 10 or < 1");
+        expect(() => gameBoardObject.receiveAttack(1, -1)).toThrow("CoordinateY > 10 or < 1 or CoordianteX > 10 or < 1");
     })
 
     test("Test if receiveAttack function is defined", () => {
@@ -93,6 +102,10 @@ describe("Testing of the function receiveAttack", () => {
     })
     test("Test if 1 is returned if hitting ship", () => {
         expect(gameBoardObject.receiveAttack(1, 1)).toBe(1);
+    })
+
+    test("Test if missedShots of gameboard is safed right", () => {
+        expect(gameBoardObject.missedShots).toBe(1);
     })
 
 

@@ -19,5 +19,8 @@ gameBoardObject.placeShip(gameBoardObject.ships.Battleship, 2, 6, true);
 
 
 
-
+console.log(gameBoardObject.gameboard);
 console.log(gameBoardObject.receiveAttack(1, 1));
+console.log(gameBoardObject.receiveAttack(2, 1));
+
+console.log(gameBoardObject.ships.Carrier);

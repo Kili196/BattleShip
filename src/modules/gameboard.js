@@ -43,7 +43,7 @@ module.exports = class Gameboard {
         }
 
         else if (coordinateY > 10 || coordinateY < 1 || coordinateX > 10 || coordinateX < 1) {
-            throw new Error("CoordinateY > 10 or < 1 or CoordianteX > 9 or < 1")
+            throw new Error("CoordinateY > 10 or < 1 or CoordianteX > 10 or < 1")
         }
 
         if (this.isPlacementValid(this.gameboard, coordinateY, coordinateX, ship, isVertical)) {
@@ -56,9 +56,19 @@ module.exports = class Gameboard {
         return -1;
     }
 
-
+    //returning 1 if hit and -1 if not
     receiveAttack(coordinateY, coordinateX) {
-        return 1;
+
+        if (coordinateY > 10 || coordinateY < 1 || coordinateX > 10 || coordinateX < 1) {
+            throw new Error("CoordinateY > 10 or < 1 or CoordianteX > 10 or < 1")
+        }
+
+        if (this.gameboard[coordinateY - 1][coordinateX - 1] != undefined) {
+            this.gameboard[coordinateY - 1][coordinateX - 1].hit();
+            return 1;
+        }
+        this.missedShots++;
+        return -1;
     }
 
 
