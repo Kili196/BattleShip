@@ -10,6 +10,29 @@ module.exports = class Gameboard {
         }
     }
 
+    isPlacementValid(gameBoard, coordinateY, coordinateX, ship, isVertical) {
+        if (isVertical) {
+            for (let i = 0; i < ship.length; i++) {
+                if ((gameBoard[coordinateY - 1][coordinateX - 1]) != undefined) {
+                    return false;
+                }
+                coordinateY++;
+            }
+        }
+        else {
+
+            for (let i = 0; i < ship.length; i++) {
+                if (gameBoard[coordinateY - 1][coordinateX - 1] != undefined) {
+                    return false;
+                }
+                coordinateX++;
+            }
+        }
+
+        return true;
+    }
+
+
 
     //placing ships vertically working --> not checking for errors yet
     placeShip(ship, coordinateY, coordinateX, isVertical) {
@@ -21,54 +44,16 @@ module.exports = class Gameboard {
             throw new Error("CoordinateY > 10 or < 1 or CoordianteX > 9 or < 1")
         }
 
-
-
-
-
-        function isPlacementValid(gameBoard, coordinateY, coordinateX) {
-            if (isVertical) {
-                for (let i = 0; i < ship.length; i++) {
-                    if ((gameBoard[coordinateY - 1][coordinateX - 1]) != undefined) {
-                        return false;
-                    }
-                    coordinateY++;
-                }
+        if (this.isPlacementValid(this.gameboard, coordinateY, coordinateX, ship, isVertical)) {
+            for (let i = 0; i < ship.length; i++) {
+                this.gameboard[coordinateY - 1][coordinateX - 1] = ship;
+                isVertical ? coordinateY++ : coordinateX++;
             }
-            else {
-
-                for (let i = 0; i < ship.length; i++) {
-                    if (gameBoard[coordinateY - 1][coordinateX - 1] != undefined) {
-                        return false;
-                    }
-                    coordinateX++;
-                }
-            }
-
-            return true;
+            return 1;
         }
-
-
-
-        if (isPlacementValid(this.gameboard, coordinateY, coordinateX)) {
-
-            if (isVertical) {
-                for (let i = 0; i < ship.length; i++) {
-                    this.gameboard[coordinateY - 1][coordinateX - 1] = ship;
-                    coordinateY++;
-                }
-            }
-            else {
-
-                for (let i = 0; i < ship.length; i++) {
-                    this.gameboard[coordinateY - 1][coordinateX - 1] = ship;
-                    coordinateX++;
-                }
-            }
-        }
-
-
-
-
-        return 1;
+        return -1;
     }
+
+
+
 }
