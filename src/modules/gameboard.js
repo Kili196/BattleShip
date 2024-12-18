@@ -2,7 +2,7 @@ const Ship = require("./ship");
 
 module.exports = class Gameboard {
     constructor() {
-        this.gameboard = Array.from({ length: 10 }, () => Array(10).fill([]));
+        this.gameboard = Array.from({ length: 10 }, () => Array(10).fill(undefined));
         this.ships = {
             "Carrier": new Ship("Carrier", 5),
             "Battleship": new Ship("Battleship", 4),
@@ -22,19 +22,53 @@ module.exports = class Gameboard {
         }
 
 
-        if (isVertical) {
-            for (let i = 0; i < ship.length; i++) {
-                this.gameboard[coordinateY - 1][coordinateX - 1] = ship;
-                coordinateY++;
+
+
+
+        function isPlacementValid(gameBoard, coordinateY, coordinateX) {
+            if (isVertical) {
+                for (let i = 0; i < ship.length; i++) {
+                    if ((gameBoard[coordinateY - 1][coordinateX - 1]) != undefined) {
+                        return false;
+                    }
+                    coordinateY++;
+                }
+            }
+            else {
+
+                for (let i = 0; i < ship.length; i++) {
+                    if (gameBoard[coordinateY - 1][coordinateX - 1] != undefined) {
+                        return false;
+                    }
+                    coordinateX++;
+                }
+            }
+
+            return true;
+        }
+
+
+
+        if (isPlacementValid(this.gameboard, coordinateY, coordinateX)) {
+
+            if (isVertical) {
+                for (let i = 0; i < ship.length; i++) {
+                    this.gameboard[coordinateY - 1][coordinateX - 1] = ship;
+                    coordinateY++;
+                }
+            }
+            else {
+
+                for (let i = 0; i < ship.length; i++) {
+                    this.gameboard[coordinateY - 1][coordinateX - 1] = ship;
+                    coordinateX++;
+                }
             }
         }
 
-        else {
-            for (let i = 0; i < ship.length; i++) {
-                this.gameboard[coordinateY - 1][coordinateX - 1] = ship;
-                coordinateX++;
-            }
-        }
+
+
+
         return 1;
     }
 }

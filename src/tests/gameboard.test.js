@@ -46,12 +46,29 @@ test("Test if the placeShip function throws Error for incorrect coordinates", ()
 
 describe("Test placeship function", () => {
     beforeEach(() => {
-        gameBoardObject.placeShip(gameBoardObject.ships.Carrier, 1, 1);
+        gameBoardObject.placeShip(gameBoardObject.ships.Carrier, 1, 1, true);
+
+
+        gameBoardObject.placeShip(gameBoardObject.ships.Battleship, 3, 5, false);
+
+        gameBoardObject.placeShip(gameBoardObject.ships.Submarine, 1, 1, true);
+
+        gameBoardObject.placeShip(gameBoardObject.ships.Battleship, 2, 6, true);
     })
 
 
     test("Testing if ship is placed in first row", () => {
         expect(gameBoardObject.gameboard[0][0]).toEqual(gameBoardObject.ships.Carrier);
+    })
+
+    test("Testing if ship is placed in right row and is placed horizontal", () => {
+        expect(gameBoardObject.gameboard[2][7]).toEqual(gameBoardObject.ships.Battleship);
+    })
+
+
+    test("Testing if ship being placed over other ship is not working", () => {
+        expect(gameBoardObject.gameboard[1][0]).toEqual(gameBoardObject.ships.Carrier);
+        expect(gameBoardObject.gameboard[1][5]).toBeUndefined();
     })
 
 
