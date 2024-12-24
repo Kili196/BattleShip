@@ -12,7 +12,6 @@ module.exports = class Gameboard {
         this.placedShips = [];
         this.missedShots = 0;
         this.hitShots = 0;
-
         this.legnthOfAllShips = 0;
 
 
@@ -55,9 +54,11 @@ module.exports = class Gameboard {
         if (this.isPlacementValid(this.gameboard, coordinateY, coordinateX, ship, isVertical)) {
             this.placedShips.push(ship);
             for (let i = 0; i < ship.length; i++) {
+                //-1 cause of the array index
                 this.gameboard[coordinateY - 1][coordinateX - 1] = ship;
                 isVertical ? coordinateY++ : coordinateX++;
             }
+            //add ship length to total length to check if all ships are sunken
             this.legnthOfAllShips += ship.length;
             return 1;
         }
