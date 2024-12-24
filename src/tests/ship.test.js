@@ -29,7 +29,6 @@ test("test sunken Method!", () => {
     carrier.hit();
     carrier.hit();
     expect(carrier).toEqual({ name: "Carrier", hits: 3, length: 3 });
-
     //check if isSunk function really returns true
     expect(carrier.isSunk()).toBe(true);
 });

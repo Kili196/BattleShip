@@ -10,8 +10,11 @@ module.exports = class Gameboard {
         }
 
         this.placedShips = [];
-
         this.missedShots = 0;
+        this.hitShots = 0;
+
+        this.legnthOfAllShips = 0;
+
 
     }
 
@@ -50,12 +53,12 @@ module.exports = class Gameboard {
         }
 
         if (this.isPlacementValid(this.gameboard, coordinateY, coordinateX, ship, isVertical)) {
-
             this.placedShips.push(ship);
             for (let i = 0; i < ship.length; i++) {
                 this.gameboard[coordinateY - 1][coordinateX - 1] = ship;
                 isVertical ? coordinateY++ : coordinateX++;
             }
+            this.legnthOfAllShips += ship.length;
             return 1;
         }
         return -1;
@@ -69,6 +72,7 @@ module.exports = class Gameboard {
 
         if (this.gameboard[coordinateY - 1][coordinateX - 1] != undefined) {
             this.gameboard[coordinateY - 1][coordinateX - 1].hit();
+            this.hitShots++;
             return 1;
         }
         this.missedShots++;
@@ -76,12 +80,8 @@ module.exports = class Gameboard {
     }
 
     allShipsSunk() {
-        for (const ship in this.placedShips) {
-            if (!(this.placedShips[ship].isSunk())) {
-                return false;
-            }
-        }
-        return true;
+        return this.hitShots == this.legnthOfAllShips;
+
     }
 
 
