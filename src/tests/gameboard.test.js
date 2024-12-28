@@ -131,7 +131,7 @@ describe("Testing of the function receiveAttack", () => {
         })
     })
 
-
+    //test if receiveAttack adds hits and missedShots correctly!
     test("Test if all ships are sunken is true", () => {
         expect(gameBoardObject.allShipsSunk()).toBe(true)
     })
