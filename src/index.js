@@ -27,5 +27,6 @@ function createGameBoardGui() {
 
 
 createGameBoardGui();
+createGameBoardGui();
 
 
