@@ -21,8 +21,6 @@ function createGameBoardGui() {
         gameBoard.appendChild(gameboardCell);
     }
     gameBoardDiv.appendChild(gameBoard);
-
-
 }
 
 
