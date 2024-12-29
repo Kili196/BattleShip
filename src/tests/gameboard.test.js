@@ -52,6 +52,9 @@ describe("Test placeship function", () => {
         gameBoardObject.placeShip(gameBoardObject.ships.Battleship, 3, 5, false);
         gameBoardObject.placeShip(gameBoardObject.ships.Submarine, 1, 1, true);
         gameBoardObject.placeShip(gameBoardObject.ships.Battleship, 2, 6, true);
+
+        gameBoardObject.placeShip(gameBoardObject.ships.Battleship, 9, 9, true);
+
     })
 
 

@@ -19,6 +19,10 @@ module.exports = class Gameboard {
 
     isPlacementValid(gameBoard, coordinateY, coordinateX, ship, isVertical) {
         if (isVertical) {
+            if (coordinateY + ship.length > 11) {
+                return false;
+            }
+
             for (let i = 0; i < ship.length; i++) {
                 if ((gameBoard[coordinateY - 1][coordinateX - 1]) != undefined) {
                     return false;
@@ -27,7 +31,9 @@ module.exports = class Gameboard {
             }
         }
         else {
-
+            if (coordinateX + ship.length > 11) {
+                return false;
+            }
             for (let i = 0; i < ship.length; i++) {
                 if (gameBoard[coordinateY - 1][coordinateX - 1] != undefined) {
                     return false;
@@ -53,6 +59,8 @@ module.exports = class Gameboard {
 
         if (this.isPlacementValid(this.gameboard, coordinateY, coordinateX, ship, isVertical)) {
             this.placedShips.push(ship);
+
+            console.log(this.placedShips);
             for (let i = 0; i < ship.length; i++) {
                 //-1 cause of the array index
                 this.gameboard[coordinateY - 1][coordinateX - 1] = ship;
