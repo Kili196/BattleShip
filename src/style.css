@@ -7,7 +7,17 @@
 
 body {
   background-color: #001233;
-
   display: flex;
   justify-content: center;
+}
+
+.gameBoard {
+  display: grid;
+  grid-template-columns: repeat(10, 40px);
+}
+
+.gameBoardCell {
+  border: 2px solid white;
+  width: 40px;
+  height: 40px;
 }
