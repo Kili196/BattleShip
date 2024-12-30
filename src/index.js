@@ -22,7 +22,6 @@ function createGameBoardGui() {
             gameBoardCell.className = "gameBoardCell";
             gameBoardCell.id = `${x}/${i}`;
             gameBoardRow.appendChild(gameBoardCell);
-
             gameBoardCell.addEventListener("click", () => console.log(gameBoardCell.id));
         }
 
