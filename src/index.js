@@ -37,6 +37,8 @@ function createGameBoardGui(isComputer) {
     gameBoard.className = "gameBoard";
     gameBoardContainer.classList = "gameBoardContainer";
 
+
+    //generating board 10x10
     for (let i = 1; i < 11; i++) {
         let gameBoardRow = document.createElement("div");
         gameBoardRow.className = "gameBoardRow";
@@ -45,6 +47,7 @@ function createGameBoardGui(isComputer) {
             gameBoardCell.className = "gameBoardCell";
             gameBoardCell.id = `${x}/${i}`;
             gameBoardRow.appendChild(gameBoardCell);
+            //only adding placing ship option if board is not a computer
             !isComputer ? gameBoardCell.addEventListener("click", () => gameBoardCellActionForPlacingShips(gameBoardCell.id)) : null;
         }
 
@@ -68,9 +71,7 @@ function generateShipSelectionUI(gameBoardContainer) {
         shipSelectionContainer.appendChild(shipButton);
 
         shipButton.addEventListener("click", () => {
-
             currentShip = playerGameBoard.ships[shipButton.textContent];
-            console.log(currentShip);
         });
 
         gameBoardContainer.appendChild(shipSelectionContainer);
