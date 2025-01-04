@@ -18,8 +18,16 @@ module.exports = class Gameboard {
     }
 
     isPlacementValid(gameBoard, coordinateY, coordinateX, ship, isVertical) {
+
+        console.log(gameBoard);
+        console.log(coordinateY);
+        console.log(coordinateX);
+        console.log(ship);
+        console.log(isVertical);
+
         if (isVertical) {
-            if (coordinateY + ship.length > 11) {
+            if ((+coordinateY + +ship.length) > 11) {
+                console.log(+coordinateY + +ship.length)
                 return false;
             }
 
@@ -31,7 +39,8 @@ module.exports = class Gameboard {
             }
         }
         else {
-            if (coordinateX + ship.length > 11) {
+            if ((+coordinateX + +ship.length) > 11) {
+
                 return false;
             }
             for (let i = 0; i < ship.length; i++) {

@@ -8,6 +8,7 @@ const playerGameBoard = new GameBoard()
 const computerBoard = new GameBoard();
 
 
+
 function getDomElements() {
     const gameBoards = document.getElementsByClassName("game-boards")[0];
     return ({ gameBoards })
@@ -18,15 +19,18 @@ function gameBoardCellActionForPlacingShips(gameBoardCellId) {
     let coordinateY = placementCords[0];
     let coordinateX = placementCords[1];
     if (currentShip != null) {
-        if (playerGameBoard.placeShip(currentShip, coordinateY, coordinateX, true)) {
+
+
+        if (playerGameBoard.placeShip(currentShip, coordinateY, coordinateX, true) == 1) {
             for (let i = 0; i < currentShip.length; i++) {
                 const currentCell = document.getElementById(`${coordinateY}/${coordinateX}`);
                 currentCell.style.backgroundColor = "red";
-                coordinateX++;
+                coordinateY++;
             }
         }
     }
     currentShip = null;
+    console.log(playerGameBoard);
 }
 
 
@@ -72,6 +76,8 @@ function generateShipSelectionUI(gameBoardContainer) {
 
         shipButton.addEventListener("click", () => {
             currentShip = playerGameBoard.ships[shipButton.textContent];
+            shipSelectionContainer.removeChild(shipButton);
+            ships.pop();
         });
 
         gameBoardContainer.appendChild(shipSelectionContainer);
@@ -81,20 +87,17 @@ function generateShipSelectionUI(gameBoardContainer) {
 }
 
 
-function startGame() {
+
+function generateUi() {
     createGameBoardGui(false);
     createGameBoardGui(true);
-
-
-
-
 }
 
 
-startGame();
+generateUi();
 
 
-console.log(document.querySelectorAll("[id='1/1']"));
+
 
 
 
