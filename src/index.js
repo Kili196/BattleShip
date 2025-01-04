@@ -27,10 +27,22 @@ function gameBoardCellActionForPlacingShips(gameBoardCellId) {
                 currentCell.style.backgroundColor = "red";
                 coordinateY++;
             }
+            currentShip = null;
         }
     }
-    currentShip = null;
+
     console.log(playerGameBoard);
+}
+
+
+//yet to be programmed
+function placeShipsForComputer() {
+    const ships = ["Carrier", "Submarine", "Battleship"];
+    ships.forEach((element) => {
+
+    })
+    Math.random() * (11 - 1) + 1;
+
 }
 
 
@@ -73,7 +85,6 @@ function generateShipSelectionUI(gameBoardContainer) {
         shipButton.textContent = element;
         shipButton.className = "shipButton";
         shipSelectionContainer.appendChild(shipButton);
-
         shipButton.addEventListener("click", () => {
             currentShip = playerGameBoard.ships[shipButton.textContent];
             shipSelectionContainer.removeChild(shipButton);
@@ -81,8 +92,6 @@ function generateShipSelectionUI(gameBoardContainer) {
         });
 
         gameBoardContainer.appendChild(shipSelectionContainer);
-
-
     })
 }
 

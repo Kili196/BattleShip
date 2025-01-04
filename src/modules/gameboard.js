@@ -19,11 +19,6 @@ module.exports = class Gameboard {
 
     isPlacementValid(gameBoard, coordinateY, coordinateX, ship, isVertical) {
 
-        console.log(gameBoard);
-        console.log(coordinateY);
-        console.log(coordinateX);
-        console.log(ship);
-        console.log(isVertical);
 
         if (isVertical) {
             if ((+coordinateY + +ship.length) > 11) {
