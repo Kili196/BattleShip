@@ -1,6 +1,8 @@
 import "./style.css"
 const GameBoard = require("./modules/gameboard")
 
+
+let isComputersTurn = false;
 let currentShip = null;
 const playerGameBoard = new GameBoard()
 const computerBoard = new GameBoard();
@@ -11,33 +13,29 @@ function getDomElements() {
     return ({ gameBoards })
 }
 
-function gameBoardCellAction(gameBoardCellId) {
-
+function gameBoardCellActionForPlacingShips(gameBoardCellId) {
     const placementCords = gameBoardCellId.split("/");
     let coordinateY = placementCords[0];
     let coordinateX = placementCords[1];
-
     if (currentShip != null) {
         for (let i = 0; i < currentShip.length; i++) {
-            //-1 cause of the array index
             const currentCell = document.getElementById(`${coordinateY}/${coordinateX}`);
             currentCell.style.backgroundColor = "red";
             coordinateX++;
-            console.log(currentCell);
         }
-
     }
+
+    currentShip = null;
 }
 
 
-function createGameBoardGui() {
-
+function createGameBoardGui(isComputer) {
     const gameBoards = getDomElements().gameBoards;
     const gameBoard = document.createElement("div");
     const gameBoardContainer = document.createElement("div");
     gameBoard.className = "gameBoard";
     gameBoardContainer.classList = "gameBoardContainer";
-    const ships = ["Carrier", "Submarine", "Battleship"];
+
     for (let i = 1; i < 11; i++) {
         let gameBoardRow = document.createElement("div");
         gameBoardRow.className = "gameBoardRow";
@@ -46,17 +44,20 @@ function createGameBoardGui() {
             gameBoardCell.className = "gameBoardCell";
             gameBoardCell.id = `${x}/${i}`;
             gameBoardRow.appendChild(gameBoardCell);
-            gameBoardCell.addEventListener("click", () => gameBoardCellAction(gameBoardCell.id));
+            !isComputer ? gameBoardCell.addEventListener("click", () => gameBoardCellActionForPlacingShips(gameBoardCell.id)) : null;
         }
 
         gameBoard.appendChild(gameBoardRow);
     }
 
     gameBoardContainer.appendChild(gameBoard);
+    !isComputer ? generateShipSelectionUI(gameBoardContainer) : null;
+    gameBoards.appendChild(gameBoardContainer);
+}
 
 
-
-    //generate Ship selection for gui
+function generateShipSelectionUI(gameBoardContainer) {
+    const ships = ["Carrier", "Submarine", "Battleship"];
     const shipSelectionContainer = document.createElement("div");
     shipSelectionContainer.className = "shipSelectionContainer";
     ships.forEach((element) => {
@@ -71,16 +72,16 @@ function createGameBoardGui() {
             console.log(currentShip);
         });
 
+        gameBoardContainer.appendChild(shipSelectionContainer);
+
 
     })
-    gameBoardContainer.appendChild(shipSelectionContainer);
-    gameBoards.appendChild(gameBoardContainer);
 }
 
 
 function startGame() {
-    createGameBoardGui();
-    createGameBoardGui();
+    createGameBoardGui(false);
+    createGameBoardGui(true);
 
 
 
@@ -90,6 +91,8 @@ function startGame() {
 
 startGame();
 
+
+console.log(document.querySelectorAll("[id='1/1']"));
 
 
 
