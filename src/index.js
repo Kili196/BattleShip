@@ -18,13 +18,14 @@ function gameBoardCellActionForPlacingShips(gameBoardCellId) {
     let coordinateY = placementCords[0];
     let coordinateX = placementCords[1];
     if (currentShip != null) {
-        for (let i = 0; i < currentShip.length; i++) {
-            const currentCell = document.getElementById(`${coordinateY}/${coordinateX}`);
-            currentCell.style.backgroundColor = "red";
-            coordinateX++;
+        if (playerGameBoard.placeShip(currentShip, coordinateY, coordinateX, true)) {
+            for (let i = 0; i < currentShip.length; i++) {
+                const currentCell = document.getElementById(`${coordinateY}/${coordinateX}`);
+                currentCell.style.backgroundColor = "red";
+                coordinateX++;
+            }
         }
     }
-
     currentShip = null;
 }
 
