@@ -42,16 +42,23 @@ function gameBoardListenerForPlayer(gameBoardCellId) {
 
 function gameBoardListenerForComputer(gameBoardCellId) {
     if (playerGameBoard.placedShips.length == 3) {
+
+
+        if (playerGameBoard.allShipsSunk()) {
+            getDomElements().gameBoards.textContent = "You have lost against the computer!"
+        }
+
         if (!isComputersTurn) {
+
             const placementCords = gameBoardCellId.split("/");
             let coordinateY = placementCords[0];
             let coordinateX = placementCords[1];
             let currentCell = document.querySelectorAll(`[id='${CSS.escape(`${coordinateY}/${coordinateX}`)}']`)[1];
-            let shot = playerGameBoard.receiveAttack(coordinateY, coordinateX);
+            let shot = computerBoard.receiveAttack(coordinateY, coordinateX);
             shot == 1 ? currentCell.style.backgroundColor = "red" : currentCell.style.backgroundColor = "pink";
 
             isComputersTurn = true;
-            setTimeout(computersTurn, 2000);
+            setTimeout(computersTurn, 0);
         }
 
     }
@@ -59,6 +66,10 @@ function gameBoardListenerForComputer(gameBoardCellId) {
 }
 
 function computersTurn() {
+
+    if (computerBoard.allShipsSunk()) {
+        getDomElements().gameBoards.textContent = "You have won against the computer!"
+    }
     if (isComputersTurn) {
         let coordinateY = Math.round(Math.random() * (10 - 1) + 1);
         let coordinateX = Math.round(Math.random() * (10 - 1) + 1);
@@ -71,8 +82,9 @@ function computersTurn() {
         isComputersTurn = false;
     }
 
-    console.log(playerGameBoard);
-    console.log(computerBoard);
+
+
+    console.log(computerBoard.allShipsSunk());
 }
 
 
