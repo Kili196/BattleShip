@@ -2,7 +2,6 @@ import "./style.css"
 const GameBoard = require("./modules/gameboard")
 
 
-let isComputersTurn = false;
 let currentShip = null;
 const playerGameBoard = new GameBoard()
 const computerBoard = new GameBoard();
@@ -19,29 +18,40 @@ function gameBoardCellActionForPlacingShips(gameBoardCellId) {
     let coordinateY = placementCords[0];
     let coordinateX = placementCords[1];
     if (currentShip != null) {
-
-
         if (playerGameBoard.placeShip(currentShip, coordinateY, coordinateX, true) == 1) {
             for (let i = 0; i < currentShip.length; i++) {
                 const currentCell = document.getElementById(`${coordinateY}/${coordinateX}`);
-                currentCell.style.backgroundColor = "red";
+                currentCell.style.backgroundColor = "blue";
                 coordinateY++;
             }
             currentShip = null;
         }
     }
-
-    console.log(playerGameBoard);
 }
+
+function gameBoardListenerForPlayer(gameBoardCellId) {
+
+    gameBoardCellActionForPlacingShips(gameBoardCellId);
+
+}
+
+function gameBoardListenerForComputer() {
+
+}
+
+
 
 
 //yet to be programmed
 function placeShipsForComputer() {
     const ships = ["Carrier", "Submarine", "Battleship"];
     ships.forEach((element) => {
+        let coordinateY = Math.round(Math.random() * (10 - 1) + 1);
+        let coordinateX = Math.round(Math.random() * (10 - 1) + 1);
 
+
+        computerBoard.placeShip(computerBoard.ships[element], coordinateY, coordinateX, true);
     })
-    Math.random() * (11 - 1) + 1;
 
 }
 
@@ -64,7 +74,7 @@ function createGameBoardGui(isComputer) {
             gameBoardCell.id = `${x}/${i}`;
             gameBoardRow.appendChild(gameBoardCell);
             //only adding placing ship option if board is not a computer
-            !isComputer ? gameBoardCell.addEventListener("click", () => gameBoardCellActionForPlacingShips(gameBoardCell.id)) : null;
+            !isComputer ? gameBoardCell.addEventListener("click", () => gameBoardListenerForPlayer(gameBoardCell.id)) : gameBoardListenerForComputer();
         }
 
         gameBoard.appendChild(gameBoardRow);
@@ -89,6 +99,7 @@ function generateShipSelectionUI(gameBoardContainer) {
             currentShip = playerGameBoard.ships[shipButton.textContent];
             shipSelectionContainer.removeChild(shipButton);
             ships.pop();
+            if (ships.length == 0) placeShipsForComputer();
         });
 
         gameBoardContainer.appendChild(shipSelectionContainer);
@@ -100,6 +111,10 @@ function generateShipSelectionUI(gameBoardContainer) {
 function generateUi() {
     createGameBoardGui(false);
     createGameBoardGui(true);
+
+
+
+
 }
 
 
