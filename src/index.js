@@ -7,6 +7,10 @@ const playerGameBoard = new GameBoard()
 const computerBoard = new GameBoard();
 
 
+let isComputersTurn = false;
+
+
+
 
 function getDomElements() {
     const gameBoards = document.getElementsByClassName("game-boards")[0];
@@ -33,11 +37,45 @@ function gameBoardListenerForPlayer(gameBoardCellId) {
 
     gameBoardCellActionForPlacingShips(gameBoardCellId);
 
-}
-
-function gameBoardListenerForComputer() {
 
 }
+
+function gameBoardListenerForComputer(gameBoardCellId) {
+    if (playerGameBoard.placedShips.length == 3) {
+        if (!isComputersTurn) {
+            const placementCords = gameBoardCellId.split("/");
+            let coordinateY = placementCords[0];
+            let coordinateX = placementCords[1];
+            let currentCell = document.querySelectorAll(`[id='${CSS.escape(`${coordinateY}/${coordinateX}`)}']`)[1];
+            let shot = playerGameBoard.receiveAttack(coordinateY, coordinateX);
+            shot == 1 ? currentCell.style.backgroundColor = "red" : currentCell.style.backgroundColor = "pink";
+
+            isComputersTurn = true;
+            setTimeout(computersTurn, 2000);
+        }
+
+    }
+
+}
+
+function computersTurn() {
+    if (isComputersTurn) {
+        let coordinateY = Math.round(Math.random() * (10 - 1) + 1);
+        let coordinateX = Math.round(Math.random() * (10 - 1) + 1);
+        let currentCell = document.querySelectorAll(`[id='${CSS.escape(`${coordinateY}/${coordinateX}`)}']`)[0];
+
+        let shot = playerGameBoard.receiveAttack(coordinateY, coordinateX);
+
+        shot == 1 ? currentCell.style.backgroundColor = "red" : currentCell.style.backgroundColor = "pink";
+
+        isComputersTurn = false;
+    }
+
+    console.log(playerGameBoard);
+    console.log(computerBoard);
+}
+
+
 
 
 
@@ -74,7 +112,7 @@ function createGameBoardGui(isComputer) {
             gameBoardCell.id = `${x}/${i}`;
             gameBoardRow.appendChild(gameBoardCell);
             //only adding placing ship option if board is not a computer
-            !isComputer ? gameBoardCell.addEventListener("click", () => gameBoardListenerForPlayer(gameBoardCell.id)) : gameBoardListenerForComputer();
+            !isComputer ? gameBoardCell.addEventListener("click", () => gameBoardListenerForPlayer(gameBoardCell.id)) : gameBoardCell.addEventListener("click", () => gameBoardListenerForComputer(gameBoardCell.id));
         }
 
         gameBoard.appendChild(gameBoardRow);
