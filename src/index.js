@@ -84,7 +84,7 @@ function computersTurn() {
 
 
 
-    console.log(computerBoard.allShipsSunk());
+    console.log(computerBoard.gameboard);
 }
 
 
@@ -100,7 +100,17 @@ function placeShipsForComputer() {
         let coordinateX = Math.round(Math.random() * (10 - 1) + 1);
 
 
-        computerBoard.placeShip(computerBoard.ships[element], coordinateY, coordinateX, true);
+        while (computerBoard.placeShip(computerBoard.ships[element], coordinateY, coordinateX, true) == -1) {
+            coordinateY = Math.round(Math.random() * (10 - 1) + 1);
+            coordinateX = Math.round(Math.random() * (10 - 1) + 1);
+        }
+
+
+
+        computerBoard.placeShip(computerBoard.ships[element], coordinateY, coordinateX, true) == -1
+
+
+
     })
 
 }
