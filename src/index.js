@@ -121,7 +121,7 @@ function placeShipsForComputer() {
 
 
 
-        computerBoard.placeShip(computerBoard.ships[element], coordinateY, coordinateX, true) == -1
+        computerBoard.placeShip(computerBoard.ships[element], coordinateY, coordinateX, true);
 
 
 
