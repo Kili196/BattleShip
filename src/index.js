@@ -14,7 +14,7 @@ const notHitColor = "#023e8a";
 let isComputersTurn = false;
 let isVertical = true;
 
-let hitShotsComputer = [];
+let shotsComputer = [];
 let hitShotsPlayer = [];
 
 
@@ -55,8 +55,6 @@ function gameBoardListenerForComputer(gameBoardCellId) {
     if (playerGameBoard.placedShips.length == 3) {
         if (playerGameBoard.allShipsSunk()) {
             getDomElements().gameBoards.textContent = "You have lost against the computer!"
-            console.log(computerBoard);
-            console.log(playerGameBoard);
             return;
         }
 
@@ -89,19 +87,21 @@ function computersTurn() {
     if (isComputersTurn) {
         let coordinateY = Math.round(Math.random() * (10 - 1) + 1);
         let coordinateX = Math.round(Math.random() * (10 - 1) + 1);
-
-
         let currentCell = document.querySelectorAll(`[id='${CSS.escape(`${coordinateY}/${coordinateX}`)}']`)[0];
+        if (shotsComputer.includes(currentCell)) {
+            while (shotsComputer.includes(currentCell)) {
+                coordinateY = Math.round(Math.random() * (10 - 1) + 1);
+                coordinateX = Math.round(Math.random() * (10 - 1) + 1);
+                currentCell = document.querySelectorAll(`[id='${CSS.escape(`${coordinateY}/${coordinateX}`)}']`)[0];
 
-        if (!hitShotsComputer.includes(currentCell)) {
-            let shot = playerGameBoard.receiveAttack(coordinateY, coordinateX);
-            shot == 1 ? currentCell.style.backgroundColor = hitColor : currentCell.style.backgroundColor = notHitColor;
-            hitShotsComputer.push(currentCell);
+            }
         }
 
+
+        let shot = playerGameBoard.receiveAttack(coordinateY, coordinateX);
+        shot == 1 ? currentCell.style.backgroundColor = hitColor : currentCell.style.backgroundColor = notHitColor;
+        shotsComputer.push(currentCell);
         isComputersTurn = false;
-
-
     }
 
 }
