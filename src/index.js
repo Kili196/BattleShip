@@ -9,6 +9,8 @@ const computerBoard = new GameBoard();
 
 let isComputersTurn = false;
 
+let isVertical = true;
+
 
 
 
@@ -22,15 +24,17 @@ function gameBoardCellActionForPlacingShips(gameBoardCellId) {
     let coordinateY = placementCords[0];
     let coordinateX = placementCords[1];
     if (currentShip != null) {
-        if (playerGameBoard.placeShip(currentShip, coordinateY, coordinateX, true) == 1) {
+        if (playerGameBoard.placeShip(currentShip, coordinateY, coordinateX, isVertical) == 1) {
             for (let i = 0; i < currentShip.length; i++) {
                 const currentCell = document.getElementById(`${coordinateY}/${coordinateX}`);
                 currentCell.style.backgroundColor = "blue";
-                coordinateY++;
+                isVertical ? coordinateY++ : coordinateX++;
             }
             currentShip = null;
         }
     }
+
+    console.log(playerGameBoard);
 }
 
 function gameBoardListenerForPlayer(gameBoardCellId) {
@@ -49,17 +53,17 @@ function gameBoardListenerForComputer(gameBoardCellId) {
         }
 
         if (!isComputersTurn) {
-
             const placementCords = gameBoardCellId.split("/");
             let coordinateY = placementCords[0];
             let coordinateX = placementCords[1];
             let currentCell = document.querySelectorAll(`[id='${CSS.escape(`${coordinateY}/${coordinateX}`)}']`)[1];
             let shot = computerBoard.receiveAttack(coordinateY, coordinateX);
             shot == 1 ? currentCell.style.backgroundColor = "red" : currentCell.style.backgroundColor = "pink";
-
             isComputersTurn = true;
             setTimeout(computersTurn, 0);
         }
+
+
 
     }
 
@@ -166,11 +170,23 @@ function generateShipSelectionUI(gameBoardContainer) {
     })
 }
 
+function addTurningEvent() {
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "r" || event.key === "R") {
+            isVertical = !isVertical;
+        }
+    })
+}
+
 
 
 function generateUi() {
     createGameBoardGui(false);
     createGameBoardGui(true);
+
+    addTurningEvent();
+
+
 
 
 
