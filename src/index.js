@@ -106,16 +106,6 @@ function computersTurn() {
 
 }
 
-
-
-console.log(computerBoard.gameboard);
-
-
-
-
-
-
-
 //yet to be programmed
 function placeShipsForComputer() {
     const ships = ["Carrier", "Submarine", "Battleship"];
